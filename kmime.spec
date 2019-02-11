@@ -6,7 +6,7 @@
 #
 Name     : kmime
 Version  : 18.12.2
-Release  : 15
+Release  : 16
 URL      : https://download.kde.org/stable/applications/18.12.2/src/kmime-18.12.2.tar.xz
 Source0  : https://download.kde.org/stable/applications/18.12.2/src/kmime-18.12.2.tar.xz
 Source99 : https://download.kde.org/stable/applications/18.12.2/src/kmime-18.12.2.tar.xz.sig
@@ -72,7 +72,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1549870419
+export SOURCE_DATE_EPOCH=1549887812
 mkdir -p clr-build
 pushd clr-build
 %cmake ..
@@ -80,7 +80,7 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1549870419
+export SOURCE_DATE_EPOCH=1549887812
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/kmime
 cp COPYING.LIB %{buildroot}/usr/share/package-licenses/kmime/COPYING.LIB
