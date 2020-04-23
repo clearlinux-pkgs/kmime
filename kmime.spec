@@ -5,14 +5,15 @@
 # Source0 file verified with key 0xDBD2CE893E2D1C87 (cfeck@kde.org)
 #
 Name     : kmime
-Version  : 19.12.3
-Release  : 30
-URL      : https://download.kde.org/stable/release-service/19.12.3/src/kmime-19.12.3.tar.xz
-Source0  : https://download.kde.org/stable/release-service/19.12.3/src/kmime-19.12.3.tar.xz
-Source1  : https://download.kde.org/stable/release-service/19.12.3/src/kmime-19.12.3.tar.xz.sig
+Version  : 20.04.0
+Release  : 31
+URL      : https://download.kde.org/stable/release-service/20.04.0/src/kmime-20.04.0.tar.xz
+Source0  : https://download.kde.org/stable/release-service/20.04.0/src/kmime-20.04.0.tar.xz
+Source1  : https://download.kde.org/stable/release-service/20.04.0/src/kmime-20.04.0.tar.xz.sig
 Summary  : Library for handling mail messages and newsgroup articles
 Group    : Development/Tools
 License  : LGPL-2.1
+Requires: kmime-data = %{version}-%{release}
 Requires: kmime-lib = %{version}-%{release}
 Requires: kmime-license = %{version}-%{release}
 Requires: kmime-locales = %{version}-%{release}
@@ -29,12 +30,20 @@ newsgroup articles are based on the same standard called MIME, which stands for
 **Multipurpose Internet Mail Extensions**. In this document, the term `message` is used to
 refer to both mail messages and newsgroup articles.
 
+%package data
+Summary: data components for the kmime package.
+Group: Data
+
+%description data
+data components for the kmime package.
+
+
 %package dev
 Summary: dev components for the kmime package.
 Group: Development
 Requires: kmime-lib = %{version}-%{release}
+Requires: kmime-data = %{version}-%{release}
 Provides: kmime-devel = %{version}-%{release}
-Requires: kmime = %{version}-%{release}
 Requires: kmime = %{version}-%{release}
 
 %description dev
@@ -44,6 +53,7 @@ dev components for the kmime package.
 %package lib
 Summary: lib components for the kmime package.
 Group: Libraries
+Requires: kmime-data = %{version}-%{release}
 Requires: kmime-license = %{version}-%{release}
 
 %description lib
@@ -67,35 +77,34 @@ locales components for the kmime package.
 
 
 %prep
-%setup -q -n kmime-19.12.3
-cd %{_builddir}/kmime-19.12.3
+%setup -q -n kmime-20.04.0
+cd %{_builddir}/kmime-20.04.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1583450220
+export SOURCE_DATE_EPOCH=1587686337
 mkdir -p clr-build
 pushd clr-build
-# -Werror is for werrorists
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
 export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
 export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 %cmake ..
 make  %{?_smp_mflags}  VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1583450220
+export SOURCE_DATE_EPOCH=1587686337
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/kmime
-cp %{_builddir}/kmime-19.12.3/COPYING.LIB %{buildroot}/usr/share/package-licenses/kmime/9a1929f4700d2407c70b507b3b2aaf6226a9543c
+cp %{_builddir}/kmime-20.04.0/COPYING.LIB %{buildroot}/usr/share/package-licenses/kmime/9a1929f4700d2407c70b507b3b2aaf6226a9543c
 pushd clr-build
 %make_install
 popd
@@ -103,6 +112,10 @@ popd
 
 %files
 %defattr(-,root,root,-)
+
+%files data
+%defattr(-,root,root,-)
+/usr/share/qlogging-categories5/kmime.categories
 
 %files dev
 %defattr(-,root,root,-)
@@ -139,7 +152,7 @@ popd
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libKF5Mime.so.5
-/usr/lib64/libKF5Mime.so.5.13.3
+/usr/lib64/libKF5Mime.so.5.14.0
 
 %files license
 %defattr(0644,root,root,0755)
