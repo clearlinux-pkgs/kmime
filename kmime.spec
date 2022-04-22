@@ -5,11 +5,11 @@
 # Source0 file verified with key 0xBB463350D6EF31EF (heiko@shruuf.de)
 #
 Name     : kmime
-Version  : 21.12.3
-Release  : 49
-URL      : https://download.kde.org/stable/release-service/21.12.3/src/kmime-21.12.3.tar.xz
-Source0  : https://download.kde.org/stable/release-service/21.12.3/src/kmime-21.12.3.tar.xz
-Source1  : https://download.kde.org/stable/release-service/21.12.3/src/kmime-21.12.3.tar.xz.sig
+Version  : 22.04.0
+Release  : 50
+URL      : https://download.kde.org/stable/release-service/22.04.0/src/kmime-22.04.0.tar.xz
+Source0  : https://download.kde.org/stable/release-service/22.04.0/src/kmime-22.04.0.tar.xz
+Source1  : https://download.kde.org/stable/release-service/22.04.0/src/kmime-22.04.0.tar.xz.sig
 Summary  : Library for handling mail messages and newsgroup articles
 Group    : Development/Tools
 License  : BSD-3-Clause CC0-1.0 LGPL-2.0
@@ -22,17 +22,9 @@ BuildRequires : buildreq-kde
 BuildRequires : extra-cmake-modules-data
 BuildRequires : kcodecs-dev
 BuildRequires : ki18n-dev
-BuildRequires : qtbase-dev
-BuildRequires : qtbase-dev mesa-dev
 
 %description
-# KMime #
-[TOC]
-# Introduction # {#introduction}
-KMime is a library for handling mail messages and newsgroup articles. Both mail messages and
-newsgroup articles are based on the same standard called MIME, which stands for
-**Multipurpose Internet Mail Extensions**. In this document, the term *message* is used to
-refer to both mail messages and newsgroup articles.
+SPDX-License-Identifier: CC0-1.0
 
 %package data
 Summary: data components for the kmime package.
@@ -81,15 +73,15 @@ locales components for the kmime package.
 
 
 %prep
-%setup -q -n kmime-21.12.3
-cd %{_builddir}/kmime-21.12.3
+%setup -q -n kmime-22.04.0
+cd %{_builddir}/kmime-22.04.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1646534191
+export SOURCE_DATE_EPOCH=1650669032
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -105,14 +97,15 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1646534191
+export SOURCE_DATE_EPOCH=1650669032
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/kmime
-cp %{_builddir}/kmime-21.12.3/CMakePresets.json.license %{buildroot}/usr/share/package-licenses/kmime/29fb05b49e12a380545499938c4879440bd8851e
-cp %{_builddir}/kmime-21.12.3/LICENSES/CC0-1.0.txt %{buildroot}/usr/share/package-licenses/kmime/8287b608d3fa40ef401339fd907ca1260c964123
-cp %{_builddir}/kmime-21.12.3/LICENSES/LGPL-2.0-only.txt %{buildroot}/usr/share/package-licenses/kmime/20079e8f79713dce80ab09774505773c926afa2a
-cp %{_builddir}/kmime-21.12.3/LICENSES/LGPL-2.0-or-later.txt %{buildroot}/usr/share/package-licenses/kmime/20079e8f79713dce80ab09774505773c926afa2a
-cp %{_builddir}/kmime-21.12.3/metainfo.yaml.license %{buildroot}/usr/share/package-licenses/kmime/7ff5a7dd2c915b2b34329c892e06917c5f82f3a4
+cp %{_builddir}/kmime-22.04.0/LICENSES/BSD-3-Clause.txt %{buildroot}/usr/share/package-licenses/kmime/9950d3fdce1cff1f71212fb5abd31453c6ee2f8c
+cp %{_builddir}/kmime-22.04.0/LICENSES/CC0-1.0.txt %{buildroot}/usr/share/package-licenses/kmime/8287b608d3fa40ef401339fd907ca1260c964123
+cp %{_builddir}/kmime-22.04.0/LICENSES/LGPL-2.0-only.txt %{buildroot}/usr/share/package-licenses/kmime/20079e8f79713dce80ab09774505773c926afa2a
+cp %{_builddir}/kmime-22.04.0/LICENSES/LGPL-2.0-or-later.txt %{buildroot}/usr/share/package-licenses/kmime/20079e8f79713dce80ab09774505773c926afa2a
+cp %{_builddir}/kmime-22.04.0/README.md.license %{buildroot}/usr/share/package-licenses/kmime/cadc9e08cb956c041f87922de84b9206d9bbffb2
+cp %{_builddir}/kmime-22.04.0/metainfo.yaml.license %{buildroot}/usr/share/package-licenses/kmime/7ff5a7dd2c915b2b34329c892e06917c5f82f3a4
 pushd clr-build
 %make_install
 popd
@@ -149,7 +142,7 @@ popd
 /usr/include/KF5/KMime/kmime/kmime_newsarticle.h
 /usr/include/KF5/KMime/kmime/kmime_types.h
 /usr/include/KF5/KMime/kmime/kmime_util.h
-/usr/include/KF5/kmime_version.h
+/usr/include/KF5/KMime/kmime_version.h
 /usr/lib64/cmake/KF5Mime/KF5MimeConfig.cmake
 /usr/lib64/cmake/KF5Mime/KF5MimeConfigVersion.cmake
 /usr/lib64/cmake/KF5Mime/KF5MimeTargets-relwithdebinfo.cmake
@@ -160,14 +153,15 @@ popd
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libKF5Mime.so.5
-/usr/lib64/libKF5Mime.so.5.19.3
+/usr/lib64/libKF5Mime.so.5.20.0
 
 %files license
 %defattr(0644,root,root,0755)
 /usr/share/package-licenses/kmime/20079e8f79713dce80ab09774505773c926afa2a
-/usr/share/package-licenses/kmime/29fb05b49e12a380545499938c4879440bd8851e
 /usr/share/package-licenses/kmime/7ff5a7dd2c915b2b34329c892e06917c5f82f3a4
 /usr/share/package-licenses/kmime/8287b608d3fa40ef401339fd907ca1260c964123
+/usr/share/package-licenses/kmime/9950d3fdce1cff1f71212fb5abd31453c6ee2f8c
+/usr/share/package-licenses/kmime/cadc9e08cb956c041f87922de84b9206d9bbffb2
 
 %files locales -f libkmime5.lang
 %defattr(-,root,root,-)
