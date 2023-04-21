@@ -1,6 +1,2 @@
 # This file contains the output files that need %exclude. Full path
 # names, one per line.
-/usr/share/locale/zh_CN/LC_MESSAGES/libkmime5.mo
-/usr/lib64/cmake/KF5Mime/KF5MimeConfig.cmake
-/usr/lib64/cmake/KF5Mime/KF5MimeConfigVersion.cmake
-/usr/lib64/qt5/mkspecs/modules/qt_KMime.pri
