@@ -1,0 +1,2 @@
+# avoid conflict
+rm -rf po/zh_CN

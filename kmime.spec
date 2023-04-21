@@ -7,7 +7,7 @@
 #
 Name     : kmime
 Version  : 22.12.2
-Release  : 66
+Release  : 67
 URL      : https://download.kde.org/stable/release-service/22.12.2/src/kmime-22.12.2.tar.xz
 Source0  : https://download.kde.org/stable/release-service/22.12.2/src/kmime-22.12.2.tar.xz
 Source1  : https://download.kde.org/stable/release-service/22.12.2/src/kmime-22.12.2.tar.xz.sig
@@ -83,11 +83,15 @@ locales components for the kmime package.
 cd %{_builddir}/kmime-22.12.2
 
 %build
+## build_prepend content
+# avoid conflict
+rm -rf po/zh_CN
+## build_prepend end
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1682086411
+export SOURCE_DATE_EPOCH=1682087926
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -103,7 +107,7 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1682086411
+export SOURCE_DATE_EPOCH=1682087926
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/kmime
 cp %{_builddir}/kmime-%{version}/CMakePresets.json.license %{buildroot}/usr/share/package-licenses/kmime/c085897bc39e05746ffd2d889a6e84ff1b7ae2d9 || :
@@ -117,6 +121,11 @@ pushd clr-build
 %make_install
 popd
 %find_lang libkmime5
+## Remove excluded files
+rm -f %{buildroot}*/usr/share/locale/zh_CN/LC_MESSAGES/libkmime5.mo
+rm -f %{buildroot}*/usr/lib64/cmake/KF5Mime/KF5MimeConfig.cmake
+rm -f %{buildroot}*/usr/lib64/cmake/KF5Mime/KF5MimeConfigVersion.cmake
+rm -f %{buildroot}*/usr/lib64/qt5/mkspecs/modules/qt_KMime.pri
 
 %files
 %defattr(-,root,root,-)
@@ -150,12 +159,9 @@ popd
 /usr/include/KF5/KMime/kmime/kmime_types.h
 /usr/include/KF5/KMime/kmime/kmime_util.h
 /usr/include/KF5/KMime/kmime_version.h
-/usr/lib64/cmake/KF5Mime/KF5MimeConfig.cmake
-/usr/lib64/cmake/KF5Mime/KF5MimeConfigVersion.cmake
 /usr/lib64/cmake/KF5Mime/KF5MimeTargets-relwithdebinfo.cmake
 /usr/lib64/cmake/KF5Mime/KF5MimeTargets.cmake
 /usr/lib64/libKF5Mime.so
-/usr/lib64/qt5/mkspecs/modules/qt_KMime.pri
 
 %files lib
 %defattr(-,root,root,-)
