@@ -6,11 +6,11 @@
 # Source0 file verified with key 0xBB463350D6EF31EF (heiko@shruuf.de)
 #
 Name     : kmime
-Version  : 23.04.0
-Release  : 70
-URL      : https://download.kde.org/stable/release-service/23.04.0/src/kmime-23.04.0.tar.xz
-Source0  : https://download.kde.org/stable/release-service/23.04.0/src/kmime-23.04.0.tar.xz
-Source1  : https://download.kde.org/stable/release-service/23.04.0/src/kmime-23.04.0.tar.xz.sig
+Version  : 23.04.1
+Release  : 71
+URL      : https://download.kde.org/stable/release-service/23.04.1/src/kmime-23.04.1.tar.xz
+Source0  : https://download.kde.org/stable/release-service/23.04.1/src/kmime-23.04.1.tar.xz
+Source1  : https://download.kde.org/stable/release-service/23.04.1/src/kmime-23.04.1.tar.xz.sig
 Summary  : Library for handling mail messages and newsgroup articles
 Group    : Development/Tools
 License  : BSD-3-Clause CC0-1.0 LGPL-2.0
@@ -76,8 +76,8 @@ locales components for the kmime package.
 
 
 %prep
-%setup -q -n kmime-23.04.0
-cd %{_builddir}/kmime-23.04.0
+%setup -q -n kmime-23.04.1
+cd %{_builddir}/kmime-23.04.1
 
 %build
 ## build_prepend content
@@ -88,23 +88,44 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1682118447
+export SOURCE_DATE_EPOCH=1684858929
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
-export FCFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
-export FFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
-export CXXFLAGS="$CXXFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
+export CFLAGS="$CFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export FCFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export FFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export CXXFLAGS="$CXXFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+%cmake ..
+make  %{?_smp_mflags}
+popd
+mkdir -p clr-build-avx2
+pushd clr-build-avx2
+## build_prepend content
+# avoid conflict
+rm -rf po/zh_CN
+## build_prepend end
+export GCC_IGNORE_WERROR=1
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+export CFLAGS="$CFLAGS -O3 -Wl,-z,x86-64-v3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd -march=x86-64-v3 "
+export FCFLAGS="$FFLAGS -O3 -Wl,-z,x86-64-v3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd -march=x86-64-v3 "
+export FFLAGS="$FFLAGS -O3 -Wl,-z,x86-64-v3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd -march=x86-64-v3 "
+export CXXFLAGS="$CXXFLAGS -O3 -Wl,-z,x86-64-v3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd -march=x86-64-v3 "
+export CFLAGS="$CFLAGS -march=x86-64-v3 -m64 -Wl,-z,x86-64-v3"
+export CXXFLAGS="$CXXFLAGS -march=x86-64-v3 -m64 -Wl,-z,x86-64-v3"
+export FFLAGS="$FFLAGS -march=x86-64-v3 -m64 -Wl,-z,x86-64-v3"
+export FCFLAGS="$FCFLAGS -march=x86-64-v3 -m64 -Wl,-z,x86-64-v3"
 %cmake ..
 make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1682118447
+export SOURCE_DATE_EPOCH=1684858929
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/kmime
 cp %{_builddir}/kmime-%{version}/LICENSES/BSD-3-Clause.txt %{buildroot}/usr/share/package-licenses/kmime/9950d3fdce1cff1f71212fb5abd31453c6ee2f8c || :
@@ -113,10 +134,14 @@ cp %{_builddir}/kmime-%{version}/LICENSES/LGPL-2.0-only.txt %{buildroot}/usr/sha
 cp %{_builddir}/kmime-%{version}/LICENSES/LGPL-2.0-or-later.txt %{buildroot}/usr/share/package-licenses/kmime/20079e8f79713dce80ab09774505773c926afa2a || :
 cp %{_builddir}/kmime-%{version}/README.md.license %{buildroot}/usr/share/package-licenses/kmime/cadc9e08cb956c041f87922de84b9206d9bbffb2 || :
 cp %{_builddir}/kmime-%{version}/metainfo.yaml.license %{buildroot}/usr/share/package-licenses/kmime/7ff5a7dd2c915b2b34329c892e06917c5f82f3a4 || :
+pushd clr-build-avx2
+%make_install_v3  || :
+popd
 pushd clr-build
 %make_install
 popd
 %find_lang libkmime5
+/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot} %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 
 %files
 %defattr(-,root,root,-)
@@ -127,6 +152,7 @@ popd
 
 %files dev
 %defattr(-,root,root,-)
+/V3/usr/lib64/libKPim5Mime.so
 /usr/include/KPim5/KMime/KMime/Content
 /usr/include/KPim5/KMime/KMime/ContentIndex
 /usr/include/KPim5/KMime/KMime/DateFormatter
@@ -163,8 +189,10 @@ popd
 
 %files lib
 %defattr(-,root,root,-)
+/V3/usr/lib64/libKPim5Mime.so.5
+/V3/usr/lib64/libKPim5Mime.so.5.23.1
 /usr/lib64/libKPim5Mime.so.5
-/usr/lib64/libKPim5Mime.so.5.23.0
+/usr/lib64/libKPim5Mime.so.5.23.1
 
 %files license
 %defattr(0644,root,root,0755)
