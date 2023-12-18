@@ -8,11 +8,11 @@
 # Source0 file verified with key 0xBB463350D6EF31EF (heiko@shruuf.de)
 #
 Name     : kmime
-Version  : 23.08.3
-Release  : 79
-URL      : https://download.kde.org/stable/release-service/23.08.3/src/kmime-23.08.3.tar.xz
-Source0  : https://download.kde.org/stable/release-service/23.08.3/src/kmime-23.08.3.tar.xz
-Source1  : https://download.kde.org/stable/release-service/23.08.3/src/kmime-23.08.3.tar.xz.sig
+Version  : 23.08.4
+Release  : 80
+URL      : https://download.kde.org/stable/release-service/23.08.4/src/kmime-23.08.4.tar.xz
+Source0  : https://download.kde.org/stable/release-service/23.08.4/src/kmime-23.08.4.tar.xz
+Source1  : https://download.kde.org/stable/release-service/23.08.4/src/kmime-23.08.4.tar.xz.sig
 Summary  : Library for handling mail messages and newsgroup articles
 Group    : Development/Tools
 License  : BSD-3-Clause CC0-1.0 LGPL-2.0
@@ -78,8 +78,8 @@ locales components for the kmime package.
 
 
 %prep
-%setup -q -n kmime-23.08.3
-cd %{_builddir}/kmime-23.08.3
+%setup -q -n kmime-23.08.4
+cd %{_builddir}/kmime-23.08.4
 
 %build
 ## build_prepend content
@@ -90,7 +90,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1701997860
+export SOURCE_DATE_EPOCH=1702929926
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -153,7 +153,7 @@ FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS"
 FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS"
 ASFLAGS="$CLEAR_INTERMEDIATE_ASFLAGS"
 LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
-export SOURCE_DATE_EPOCH=1701997860
+export SOURCE_DATE_EPOCH=1702929926
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/kmime
 cp %{_builddir}/kmime-%{version}/LICENSES/BSD-3-Clause.txt %{buildroot}/usr/share/package-licenses/kmime/9950d3fdce1cff1f71212fb5abd31453c6ee2f8c || :
@@ -216,9 +216,9 @@ popd
 
 %files lib
 %defattr(-,root,root,-)
-/V3/usr/lib64/libKPim5Mime.so.5.24.3
+/V3/usr/lib64/libKPim5Mime.so.5.24.4
 /usr/lib64/libKPim5Mime.so.5
-/usr/lib64/libKPim5Mime.so.5.24.3
+/usr/lib64/libKPim5Mime.so.5.24.4
 
 %files license
 %defattr(0644,root,root,0755)
