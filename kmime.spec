@@ -9,7 +9,7 @@
 #
 Name     : kmime
 Version  : 24.12.0
-Release  : 94
+Release  : 95
 URL      : https://download.kde.org/stable/release-service/24.12.0/src/kmime-24.12.0.tar.xz
 Source0  : https://download.kde.org/stable/release-service/24.12.0/src/kmime-24.12.0.tar.xz
 Source1  : https://download.kde.org/stable/release-service/24.12.0/src/kmime-24.12.0.tar.xz.sig
